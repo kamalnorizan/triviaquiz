@@ -2,25 +2,20 @@ import 'package:flutter/material.dart';
 
 class Buttons extends StatelessWidget {
   final Function selectedHandler;
+  final String title;
 
-  Buttons(this.selectedHandler);
+  Buttons(this.selectedHandler, this.title);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
+    return Container(
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: ElevatedButton(
           onPressed: selectedHandler,
-          child: Text('Answer 1'),
+          child: Text(title),
         ),
-        ElevatedButton(
-          onPressed: selectedHandler,
-          child: Text('Answer 2'),
-        ),
-        ElevatedButton(
-          onPressed: selectedHandler,
-          child: Text('Answer 3'),
-        )
-      ],
+      ),
     );
   }
 }
