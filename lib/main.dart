@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:triviaquiz/question.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,15 +37,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-              child: Center(
-                child: Text(
-                  _questions[_questionIndex],
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-            ),
+            Question(_questions[_questionIndex]),
             ElevatedButton(
               onPressed: _answerQuestion,
               child: Text('Answer 1'),
