@@ -15,7 +15,7 @@ class _MyAppState extends State<MyApp> {
   var _questions = [
     {
       'questionText': 'What\'s your favorite color?',
-      'answers': ['Black', 'Red', 'Green', 'White'],
+      'answers': ['Black', 'Red'],
     },
     {
       'questionText': 'What\'s your favorite animal?',
@@ -36,6 +36,17 @@ class _MyAppState extends State<MyApp> {
       _questionIndex = _questionIndex + 1;
     });
     print(_questionIndex);
+    if (_questionIndex < _questions.length) {
+      print('Ada soalan lagi');
+    } else {
+      print('Soalan dah habis!');
+    }
+  }
+
+  void _resetQuestion() {
+    setState(() {
+      _questionIndex = 0;
+    });
   }
 
   @override
@@ -48,15 +59,32 @@ class _MyAppState extends State<MyApp> {
             child: Text('Trivia Quiz'),
           ),
         ),
-        body: Column(
-          children: [
-            Question(_questions[_questionIndex]['questionText']),
-            ...(_questions[_questionIndex]['answers'] as List<String>)
-                .map((answer) {
-              return Buttons(_answerQuestion, answer);
-            }).toList()
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Column(
+                children: [
+                  Question(_questions[_questionIndex]['questionText']),
+                  ...(_questions[_questionIndex]['answers'] as List<String>)
+                      .map((answer) {
+                    return Buttons(_answerQuestion, answer);
+                  }).toList()
+                ],
+              )
+            : Column(
+                children: [
+                  Center(
+                    child: Text('Thank you!'),
+                  ),
+                  ElevatedButton(
+                    // onPressed: () {
+                    //   setState(() {
+                    //     _questionIndex = 0;
+                    //   });
+                    // },
+                    onPressed: _resetQuestion,
+                    child: Text('Reset Question'),
+                  )
+                ],
+              ),
       ),
     );
   }
