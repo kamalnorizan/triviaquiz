@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:triviaquiz/buttons.dart';
-import 'package:triviaquiz/question.dart';
 import 'package:triviaquiz/quiz.dart';
 
 void main() => runApp(MyApp());
@@ -82,21 +80,33 @@ class _MyAppState extends State<MyApp> {
                 questions: _questions,
                 answerQuestion: _answerQuestion,
                 questionIndex: _questionIndex)
-            : Column(
-                children: [
-                  Center(
-                    child: Text('Thank you!'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _questionIndex = 0;
-                      });
-                    },
-                    // onPressed: _resetQuestion,
-                    child: Text('Reset Question'),
-                  ),
-                ],
+            : Center(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                      child: Text(
+                        'You Scored',
+                        style: TextStyle(fontSize: 25),
+                      ),
+                    ),
+                    Text(
+                      _totalScore.toString(),
+                      style: TextStyle(fontSize: 50),
+                    ),
+                    Text('Thank you!'),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _questionIndex = 0;
+                          _totalScore = 0;
+                        });
+                      },
+                      // onPressed: _resetQuestion,
+                      child: Text('Reset Question'),
+                    ),
+                  ],
+                ),
               ),
       ),
     );
