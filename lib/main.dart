@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:triviaquiz/buttons.dart';
 import 'package:triviaquiz/question.dart';
+import 'package:triviaquiz/quiz.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,6 +12,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  var _totalScore = 0;
 
   var _questions = [
     {
@@ -57,22 +59,12 @@ class _MyAppState extends State<MyApp> {
     },
   ];
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totalScore += score;
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
-    print(_questionIndex);
-    if (_questionIndex < _questions.length) {
-      print('Ada soalan lagi');
-    } else {
-      print('Soalan dah habis!');
-    }
-  }
-
-  void _resetQuestion() {
-    setState(() {
-      _questionIndex = 0;
-    });
+    print(_totalScore);
   }
 
   @override
@@ -86,16 +78,10 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         body: _questionIndex < _questions.length
-            ? Column(
-                children: [
-                  Question(_questions[_questionIndex]['questionText']),
-                  ...(_questions[_questionIndex]['answers']
-                          as List<Map<String, Object>>)
-                      .map((answer) {
-                    return Buttons(_answerQuestion, answer['text']);
-                  }).toList()
-                ],
-              )
+            ? Quiz(
+                questions: _questions,
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex)
             : Column(
                 children: [
                   Center(
