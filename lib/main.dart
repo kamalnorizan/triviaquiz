@@ -15,19 +15,45 @@ class _MyAppState extends State<MyApp> {
   var _questions = [
     {
       'questionText': 'What\'s your favorite color?',
-      'answers': ['Black', 'Red'],
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 8}
+      ],
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answers': ['Cat', 'Fish', 'Lion', 'Tiger'],
+      'answers': [
+        {'text': 'Cat', 'score': 10},
+        {'text': 'Fish', 'score': 8},
+        {'text': 'Lion', 'score': 6},
+        {'text': 'Tiger', 'score': 4}
+      ],
     },
     {
       'questionText': 'What\'s your favorite mall?',
-      'answers': ['Ioi Mall', 'Alamanda', 'AEON', 'Giant Hypermarket'],
+      'answers': [
+        {'text': 'Ioi Mall', 'score': 4},
+        {'text': 'Alamanda', 'score': 6},
+        {'text': 'AEON', 'score': 8},
+        {'text': 'Giant Hypermarket', 'score': 10}
+      ],
     },
     {
       'questionText': 'Where\'s your favorite place?',
-      'answers': ['Home', 'Work', 'Australia', 'Singapore'],
+      'answers': [
+        {'text': 'Home', 'score': 10},
+        {'text': 'Work', 'score': 4},
+        {'text': 'Australia', 'score': 8},
+        {'text': 'Singapore', 'score': 6},
+      ],
+    },
+    {
+      'questionText': 'Who\'s your favorite trainer?',
+      'answers': [
+        {'text': 'Kamal', 'score': 10},
+        {'text': 'Kamal', 'score': 10},
+        {'text': 'Kamal', 'score': 10},
+      ],
     },
   ];
 
@@ -63,9 +89,10 @@ class _MyAppState extends State<MyApp> {
             ? Column(
                 children: [
                   Question(_questions[_questionIndex]['questionText']),
-                  ...(_questions[_questionIndex]['answers'] as List<String>)
+                  ...(_questions[_questionIndex]['answers']
+                          as List<Map<String, Object>>)
                       .map((answer) {
-                    return Buttons(_answerQuestion, answer);
+                    return Buttons(_answerQuestion, answer['text']);
                   }).toList()
                 ],
               )
@@ -75,14 +102,14 @@ class _MyAppState extends State<MyApp> {
                     child: Text('Thank you!'),
                   ),
                   ElevatedButton(
-                    // onPressed: () {
-                    //   setState(() {
-                    //     _questionIndex = 0;
-                    //   });
-                    // },
-                    onPressed: _resetQuestion,
+                    onPressed: () {
+                      setState(() {
+                        _questionIndex = 0;
+                      });
+                    },
+                    // onPressed: _resetQuestion,
                     child: Text('Reset Question'),
-                  )
+                  ),
                 ],
               ),
       ),
